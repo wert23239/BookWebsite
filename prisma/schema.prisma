@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int              @id @default(autoincrement())
+  email           String           @unique
+  createdAt       DateTime         @default(now()) @map("created_at")
+  surveyResponses SurveyResponse[]
+  pages           UserPage[]
+
+  @@map("users")
+}
+
+model Page {
+  id            Int        @id @default(autoincrement())
+  chapterNumber Int        @map("chapter_number")
+  variant       String
+  title         String
+  description   String?
+  filePath      String     @map("file_path")
+  rarity        String
+  type          String
+  createdAt     DateTime   @default(now()) @map("created_at")
+  userPages     UserPage[]
+
+  @@map("pages")
+}
+
+model UserPage {
+  id                Int      @id @default(autoincrement())
+  userId            Int      @map("user_id")
+  pageId            Int      @map("page_id")
+  acquiredAt        DateTime @default(now()) @map("acquired_at")
+  acquisitionMethod String   @map("acquisition_method")
+  page              Page     @relation(fields: [pageId], references: [id])
+  user              User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, pageId])
+  @@map("user_pages")
+}
+
+model SurveyResponse {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @map("user_id")
+  questionId Int      @map("question_id")
+  response   String
+  createdAt  DateTime @default(now()) @map("created_at")
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("survey_responses")
+}
