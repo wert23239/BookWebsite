@@ -70,3 +70,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .chapter-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-8;
+  }
+
+  .chapter-card {
+    @apply border border-gray-200 transition-shadow duration-200 hover:shadow-lg;
+  }
+
+  .chapter-completed {
+    @apply ml-2 text-sm text-emerald-500 font-normal;
+  }
+
+  .chapter-button {
+    @apply w-full transition-colors duration-200;
+  }
+
+  .chapter-button-new {
+    @apply bg-blue-600 hover:bg-blue-700;
+  }
+
+  .chapter-button-completed {
+    @apply bg-emerald-600 hover:bg-emerald-700;
+  }
+}

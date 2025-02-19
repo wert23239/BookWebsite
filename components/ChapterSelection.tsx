@@ -13,26 +13,28 @@ const ChapterSelection: React.FC<ChapterSelectionProps> = ({
 }) => {
   console.log(completedChapters);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto mt-8">
+    <div className="chapter-grid">
       {[1, 2].map((chapterNum) => (
-        <Card key={chapterNum}>
+        <Card key={chapterNum} className="chapter-card">
           <CardHeader>
             <CardTitle>
               Chapter {chapterNum}
               {completedChapters.includes(chapterNum) && (
-                <span className="ml-2 text-sm text-green-500">(Completed)</span>
+                <span className="chapter-completed">(Completed)</span>
               )}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-gray-600">
+            <p className="chapter-description">
               {chapterNum === 1
                 ? "Start your journey here..."
                 : "Continue your adventure..."}
             </p>
             <Button
               onClick={() => onChapterSelect(chapterNum)}
-              className="w-full bg-blue-500 hover:bg-blue-600"
+              className={`chapter-button ${
+                completedChapters.includes(chapterNum) ? "completed" : ""
+              }`}
             >
               {completedChapters.includes(chapterNum)
                 ? "Review Chapter"
