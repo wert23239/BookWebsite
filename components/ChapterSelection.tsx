@@ -11,6 +11,7 @@ const ChapterSelection: React.FC<ChapterSelectionProps> = ({
   onChapterSelect,
   completedChapters = [],
 }) => {
+  console.log(completedChapters);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto mt-8">
       {[1, 2].map((chapterNum) => (

@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client";
 import { useState, useEffect } from "react";
 import Logo from "@/components/Logo";
@@ -5,20 +6,37 @@ import ChapterSelection from "@/components/ChapterSelection";
 import Survey from "@/components/Survey";
 import Collection from "@/components/Collection";
 import { Page } from "@prisma/client";
-import { saveUserData, getUserData } from "@/lib/localStorage";
-import { Button } from "@/components/ui/button";
+
+interface StoredUserData {
+  pages: Page[];
+  completedChapters: number[];
+}
+
+function getUserData(): StoredUserData | null {
+  const stored = localStorage.getItem("user_data");
+  if (!stored) return null;
+  return JSON.parse(stored);
+}
+
+function saveUserData(pages: Page[], chapterNumber: number) {
+  const existingData = getUserData() || { pages: [], completedChapters: [] };
+  const updatedData = {
+    pages: [...existingData.pages, ...pages],
+    completedChapters: [...existingData.completedChapters, chapterNumber],
+  };
+  localStorage.setItem("user_data", JSON.stringify(updatedData));
+}
 
 export default function Home() {
   const [userPages, setUserPages] = useState<Page[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
-  const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false);
+  const [completedChapters, setCompletedChapters] = useState<number[]>([]); // Initialize with empty array
 
   useEffect(() => {
     const storedData = getUserData();
     if (storedData) {
       setUserPages(storedData.pages);
-      setSelectedChapter(storedData.currentChapter);
-      setHasCompletedSurvey(storedData.pages.length > 0);
+      setCompletedChapters(storedData.completedChapters || []); // Provide fallback empty array
     }
   }, []);
 
@@ -27,38 +45,41 @@ export default function Home() {
   };
 
   const handleSurveyComplete = (surveyPage: Page, bonusPage: Page) => {
-    const newPages = [surveyPage, bonusPage];
-    setUserPages(newPages);
-    setHasCompletedSurvey(true);
-    saveUserData(newPages, selectedChapter || 1);
+    console.log("Survey completed with pages:", { surveyPage, bonusPage });
+    if (selectedChapter) {
+      const newPages = [surveyPage, bonusPage];
+      const updatedPages = [...userPages, ...newPages];
+      setUserPages(updatedPages);
+      const updatedCompletedChapters = [...completedChapters, selectedChapter];
+      setCompletedChapters(updatedCompletedChapters);
+      saveUserData(updatedPages, selectedChapter);
+    }
   };
 
-  const handleBack = () => {
-    if (hasCompletedSurvey) {
-      setHasCompletedSurvey(false);
-      setUserPages([]);
-    }
-    setSelectedChapter(null);
-    localStorage.clear();
-  };
+  // Add a check for completedChapters
+  const isChapterCompleted =
+    selectedChapter !== null && completedChapters?.includes(selectedChapter);
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Logo />
       <main className="container mx-auto px-4 py-8">
         {!selectedChapter ? (
-          <ChapterSelection onChapterSelect={handleChapterSelect} />
-        ) : !hasCompletedSurvey ? (
+          <ChapterSelection
+            onChapterSelect={handleChapterSelect}
+            completedChapters={completedChapters}
+          />
+        ) : isChapterCompleted ? (
+          <Collection
+            userCards={userPages
+              .filter((page) => page && page.chapterNumber === selectedChapter)
+              .filter(Boolean)} // Add extra filter to remove any undefined
+            onBack={() => setSelectedChapter(null)}
+          />
+        ) : (
           <Survey
             onComplete={handleSurveyComplete}
             chapterNumber={selectedChapter}
-          />
-        ) : (
-          <Collection
-            userCards={userPages.filter(
-              (page) => page.chapterNumber === selectedChapter
-            )}
-            onBack={() => setSelectedChapter(null)}
           />
         )}
       </main>

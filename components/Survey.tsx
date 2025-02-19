@@ -160,7 +160,7 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
       // Get survey-based page
       const personalityType = determinePageType(answers);
       const surveyPagesResponse = await fetch(
-        `/api/pages?type=survey&variant=${personalityType}`
+        `/api/pages?type=survey&variant=${personalityType}&chapter=${chapterNumber}`
       );
       const surveyPages = await surveyPagesResponse.json();
       const surveyPage = getRandomPage(surveyPages);
@@ -172,7 +172,7 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
       else if (random > 0.6) rarity = "uncommon";
 
       const bonusPagesResponse = await fetch(
-        `/api/pages?type=bonus&rarity=${rarity}`
+        `/api/pages?type=bonus&rarity=${rarity}&chapter=${chapterNumber}`
       );
       const bonusPages = await bonusPagesResponse.json();
       const bonusPage = getRandomPage(bonusPages);
