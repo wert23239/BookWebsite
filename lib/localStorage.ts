@@ -1,13 +1,18 @@
-import { Page } from "@prisma/client";
-
-const STORAGE_KEY = "user_pages";
-
-export function saveUserPages(pages: Page[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(pages));
+interface StoredUserData {
+  pages: any[];
+  currentChapter: number | null;
 }
 
-export function getUserPages(): Page[] | null {
-  const stored = localStorage.getItem(STORAGE_KEY);
+export function saveUserData(pages: any[], chapter: number) {
+  const userData: StoredUserData = {
+    pages,
+    currentChapter: chapter,
+  };
+  localStorage.setItem("user_data", JSON.stringify(userData));
+}
+
+export function getUserData(): StoredUserData | null {
+  const stored = localStorage.getItem("user_data");
   if (!stored) return null;
   return JSON.parse(stored);
 }

@@ -7,9 +7,10 @@ import PDFViewer from "./PDFViewer";
 
 interface CollectionProps {
   userCards: Page[];
+  onBack: () => void;
 }
 
-const Collection: React.FC<CollectionProps> = ({ userCards }) => {
+const Collection: React.FC<CollectionProps> = ({ userCards, onBack }) => {
   const handleClear = () => {
     localStorage.clear();
     window.location.reload();
@@ -17,12 +18,14 @@ const Collection: React.FC<CollectionProps> = ({ userCards }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <Button
-        onClick={handleClear}
-        className="mb-4 bg-red-500 hover:bg-red-600"
-      >
-        Clear Pages
-      </Button>
+      <div className="flex gap-4 mb-4">
+        <Button onClick={onBack} className="bg-gray-500 hover:bg-gray-600">
+          Back to Chapters
+        </Button>
+        <Button onClick={handleClear} className="bg-red-500 hover:bg-red-600">
+          Clear Pages
+        </Button>
+      </div>
 
       {userCards.map((page) => (
         <div key={page.id} className="mb-8">
