@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import PackOpening from "./PackOpening";
 
 interface Question {
   id: number;
@@ -134,6 +135,14 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showSubmit, setShowSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPackOpening, setShowPackOpening] = useState(false);
+  const [pages, setPages] = useState<{
+    surveyPage: Page | null;
+    bonusPage: Page | null;
+  }>({
+    surveyPage: null,
+    bonusPage: null,
+  });
 
   const questions =
     chapterQuestions[chapterNumber as keyof typeof chapterQuestions];
@@ -176,8 +185,12 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
       );
       const bonusPages = await bonusPagesResponse.json();
       const bonusPage = getRandomPage(bonusPages);
-
-      onComplete(surveyPage, bonusPage);
+      console.log("Are we close?");
+      setPages({
+        surveyPage,
+        bonusPage,
+      });
+      setShowPackOpening(true);
     } catch (error) {
       console.error("Error fetching pages:", error);
     } finally {
@@ -185,51 +198,70 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
     }
   };
 
-  return (
-    <Card className="w-full max-w-2xl mx-auto mt-8">
-      <CardHeader>
-        <CardTitle>Quick Survey</CardTitle>
-      </CardHeader>
-      <CardContent>
-        {!showSubmit ? (
-          <div>
-            <h3 className="text-lg font-medium mb-4">
-              {questions[currentQuestion].text}
-            </h3>
-            <RadioGroup
-              onValueChange={(value) =>
-                handleAnswer(questions[currentQuestion].id, value)
-              }
-            >
-              {questions[currentQuestion].options.map((option) => (
-                <div
-                  key={option.id}
-                  className="flex items-center space-x-2 mb-2"
-                >
-                  <RadioGroupItem value={option.id} id={option.id} />
-                  <Label htmlFor={option.id}>{option.text}</Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-        ) : (
-          <div>
-            <p className="mb-4">Thank you for completing the survey!</p>
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="w-full bg-blue-500 hover:bg-blue-600"
-            >
-              {isSubmitting ? "Getting Your Pages..." : "Get Your Pages"}
-            </Button>
-          </div>
-        )}
+  const handlePackOpeningComplete = (pages: Page[]) => {
+    onComplete(pages[0], pages[1]);
+  };
 
-        <div className="mt-4 text-sm text-gray-500">
-          Question {currentQuestion + 1} of {questions.length}
-        </div>
-      </CardContent>
-    </Card>
+  return (
+    <>
+      <Card className="w-full max-w-2xl mx-auto mt-8">
+        <CardHeader>
+          <CardTitle>Quick Survey</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {!showSubmit ? (
+            <div>
+              <h3 className="text-lg font-medium mb-4">
+                {questions[currentQuestion].text}
+              </h3>
+              <RadioGroup
+                onValueChange={(value) =>
+                  handleAnswer(questions[currentQuestion].id, value)
+                }
+              >
+                {questions[currentQuestion].options.map((option) => (
+                  <div
+                    key={option.id}
+                    className="flex items-center space-x-2 mb-2"
+                  >
+                    <RadioGroupItem value={option.id} id={option.id} />
+                    <Label htmlFor={option.id}>{option.text}</Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          ) : (
+            <div>
+              <p className="mb-4">Thank you for completing the survey!</p>
+              <Button
+                onClick={handleSubmit}
+                disabled={isSubmitting}
+                className="w-full bg-blue-500 hover:bg-blue-600"
+              >
+                {isSubmitting ? "Getting Your Pages..." : "Get Your Pages"}
+              </Button>
+            </div>
+          )}
+
+          <div className="mt-4 text-sm text-gray-500">
+            Question {currentQuestion + 1} of {questions.length}
+          </div>
+        </CardContent>
+      </Card>
+      {console.log(
+        "Rendering PackOpening with:",
+        showPackOpening,
+        pages.surveyPage,
+        pages.bonusPage
+      )}
+      {showPackOpening && pages.surveyPage && pages.bonusPage && (
+        <PackOpening
+          surveyPage={pages.surveyPage}
+          bonusPage={pages.bonusPage}
+          onOpeningComplete={handlePackOpeningComplete}
+        />
+      )}
+    </>
   );
 };
 
