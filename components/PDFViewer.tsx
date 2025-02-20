@@ -3,20 +3,20 @@ import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
-import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { motion, AnimatePresence } from "framer-motion";
 import { GlobalWorkerOptions } from "pdfjs-dist";
-
-interface PDFViewerProps {
-  pdfUrl: string;
-}
 
 GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
 ).toString();
+
+interface PDFViewerProps {
+  pdfUrl: string;
+}
 
 const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
   const [numPages, setNumPages] = useState<number>(0);

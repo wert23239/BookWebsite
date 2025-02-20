@@ -83,7 +83,6 @@ body {
   .chapter-completed {
     @apply ml-2 text-sm text-emerald-500 font-normal;
   }
-
   .chapter-button {
     @apply w-full transition-colors duration-200;
   }
@@ -99,4 +98,30 @@ body {
 
 .perspective {
   perspective: 1000px;
+}
+
+/* Enhanced 3D effect */
+.page-container {
+  perspective: 2000px;
+  perspective-origin: 50% 50%;
+}
+
+.page-flip {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Dynamic page curl shadow */
+.page-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1) 10%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  pointer-events: none;
 }
