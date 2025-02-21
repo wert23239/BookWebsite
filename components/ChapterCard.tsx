@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 interface ChapterCardProps {
   chapterNum: number;
   isCompleted: boolean;
+  isLoading: boolean;
   onSelect: (chapterNum: number) => void;
 }
 
 const ChapterCard: React.FC<ChapterCardProps> = ({
   chapterNum,
   isCompleted,
+  isLoading,
   onSelect,
 }) => {
   return (
@@ -32,6 +34,15 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
                 animate={{ opacity: 1, x: 0 }}
               >
                 ✓ Completed
+              </motion.span>
+            )}
+            {isLoading && (
+              <motion.span
+                className="chapter-completed"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+              >
+                Loading...
               </motion.span>
             )}
           </CardTitle>

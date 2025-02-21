@@ -5,11 +5,13 @@ import ChapterCard from "./ChapterCard";
 interface ChapterSelectionProps {
   onChapterSelect: (chapterNumber: number) => void;
   completedChapters?: number[];
+  isLoading?: boolean;
 }
 
 const ChapterSelection: React.FC<ChapterSelectionProps> = ({
   onChapterSelect,
   completedChapters = [],
+  isLoading = false,
 }) => {
   return (
     <div className="chapter-grid">
@@ -18,6 +20,7 @@ const ChapterSelection: React.FC<ChapterSelectionProps> = ({
           key={chapterNum}
           chapterNum={chapterNum}
           isCompleted={completedChapters.includes(chapterNum)}
+          isLoading={isLoading}
           onSelect={onChapterSelect}
         />
       ))}

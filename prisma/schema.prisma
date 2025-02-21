@@ -8,11 +8,14 @@ datasource db {
 }
 
 model User {
-  id              Int              @id @default(autoincrement())
-  email           String           @unique
-  createdAt       DateTime         @default(now()) @map("created_at")
-  surveyResponses SurveyResponse[]
-  pages           UserPage[]
+  id            String      @id @default(cuid())
+  name          String?
+  email         String      @unique
+  password      String
+  pages         UserPage[]
+  emailVerified DateTime?   @map("email_verified")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
 
   @@map("users")
 }

@@ -31,6 +31,7 @@ export default function Home() {
   const [userPages, setUserPages] = useState<Page[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
   const [completedChapters, setCompletedChapters] = useState<number[]>([]); // Initialize with empty array
+  const [isLoading, setIsLoading] = useState<boolean | null>();
 
   useEffect(() => {
     const storedData = getUserData();
@@ -41,7 +42,11 @@ export default function Home() {
   }, []);
 
   const handleChapterSelect = (chapterNumber: number) => {
-    setSelectedChapter(chapterNumber);
+    setIsLoading(true);
+    setTimeout(() => {
+      setSelectedChapter(chapterNumber);
+      setIsLoading(false);
+    }, 5000);
   };
 
   const handleSurveyComplete = (surveyPage: Page, bonusPage: Page) => {
@@ -68,6 +73,7 @@ export default function Home() {
           <ChapterSelection
             onChapterSelect={handleChapterSelect}
             completedChapters={completedChapters}
+            isLoading={isLoading}
           />
         ) : isChapterCompleted ? (
           <Collection
