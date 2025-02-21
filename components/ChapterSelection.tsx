@@ -5,7 +5,7 @@ import ChapterCard from "./ChapterCard";
 interface ChapterSelectionProps {
   onChapterSelect: (chapterNumber: number) => void;
   completedChapters?: number[];
-  isLoading?: boolean;
+  isLoading?: number;
 }
 
 const ChapterSelection: React.FC<ChapterSelectionProps> = ({

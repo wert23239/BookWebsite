@@ -83,6 +83,11 @@ body {
   .chapter-completed {
     @apply ml-2 text-sm text-emerald-500 font-normal;
   }
+
+  .chapter-loading {
+    @apply ml-2 text-sm text-gray-500 font-normal;
+  }
+
   .chapter-button {
     @apply w-full transition-colors duration-200;
   }

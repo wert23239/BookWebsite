@@ -2,11 +2,12 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface ChapterCardProps {
   chapterNum: number;
   isCompleted: boolean;
-  isLoading: boolean;
+  isLoading: number;
   onSelect: (chapterNum: number) => void;
 }
 
@@ -25,7 +26,7 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
     >
       <Card className="chapter-card">
         <CardHeader>
-          <CardTitle>
+          <CardTitle className="flex items-center gap-2">
             Chapter {chapterNum}
             {isCompleted && (
               <motion.span
@@ -36,13 +37,16 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
                 ✓ Completed
               </motion.span>
             )}
-            {isLoading && (
+            {isLoading == chapterNum && (
               <motion.span
-                className="chapter-completed"
+                className="chapter-loading"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
               >
-                Loading...
+                <span className="flex items-center gap-2">
+                  Loading...
+                  <Loader2 className="animate-spin" />
+                </span>
               </motion.span>
             )}
           </CardTitle>
