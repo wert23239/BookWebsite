@@ -8,7 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test-db": "npx tsx lib/database/test.ts"
+    "test-db": "npx tsx lib/database/db_validation.ts",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -35,12 +38,17 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@shadcn/ui": "^0.0.4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "pdfjs-dist": "^4.8.69",
     "postcss": "^8",
     "prisma": "^6.4.0",
