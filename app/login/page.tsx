@@ -57,7 +57,7 @@ export default function LoginPage() {
           Login
         </button>
         <p className="mt-2 text-sm">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/signup" className="text-blue-500">
             Sign up
           </a>

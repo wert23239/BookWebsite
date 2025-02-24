@@ -1,9 +1,11 @@
+import { Page } from "@prisma/client"; // Ensure this import is correct
+
 interface StoredUserData {
-  pages: any[];
+  pages: Page[];
   currentChapter: number | null;
 }
 
-export function saveUserData(pages: any[], chapter: number) {
+export function saveUserData(pages: Page[], chapter: number) {
   const userData: StoredUserData = {
     pages,
     currentChapter: chapter,

@@ -4,17 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Page } from "@prisma/client";
 import PackOpening from "./PackOpening";
-
-interface Question {
-  id: number;
-  text: string;
-  options: {
-    id: string;
-    text: string;
-    type: "philosophical" | "actionOriented" | "emotional";
-  }[];
-}
 
 const chapterQuestions = {
   1: [
@@ -113,20 +104,20 @@ const determinePageType = (answers: Record<number, string>) => {
   // Find the most common type
   const maxCount = Math.max(...Object.values(counts));
   const dominantTypes = Object.entries(counts).filter(
-    ([_, count]) => count === maxCount
+    ([, count]) => count === maxCount
   );
 
   const randomIndex = Math.floor(Math.random() * dominantTypes.length);
   return dominantTypes[randomIndex][0];
 };
 
-const getRandomPage = (pages: any[]) => {
+const getRandomPage = (pages: Page[]) => {
   const randomIndex = Math.floor(Math.random() * pages.length);
   return pages[randomIndex];
 };
 
 interface SurveyProps {
-  onComplete: (surveyPage: any, bonusPage: any) => void;
+  onComplete: (surveyPage: Page, bonusPage: Page) => void;
   chapterNumber: number;
 }
 

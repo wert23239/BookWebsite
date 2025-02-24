@@ -30,7 +30,7 @@ function saveUserData(pages: Page[], chapterNumber: number) {
 }
 
 export default function Home() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   const [userPages, setUserPages] = useState<Page[]>([]);
