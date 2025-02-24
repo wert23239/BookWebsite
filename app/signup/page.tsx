@@ -1,10 +1,13 @@
+// app/(auth)/signup/page.tsx
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
@@ -12,6 +15,18 @@ export default function SignUpPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    // Check password strength
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
 
     const response = await fetch("/api/auth/signup", {
       method: "POST",
@@ -39,7 +54,7 @@ export default function SignUpPage() {
         {error && <p className="text-red-500 mb-2">{error}</p>}
         <input
           type="text"
-          placeholder="Name"
+          placeholder="First Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded mb-3"
@@ -61,6 +76,14 @@ export default function SignUpPage() {
           className="w-full p-2 border border-gray-300 rounded mb-3"
           required
         />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded mb-3"
+          required
+        />
         <button
           type="submit"
           className="w-full p-2 bg-blue-500 text-white rounded"
@@ -69,9 +92,9 @@ export default function SignUpPage() {
         </button>
         <p className="mt-2 text-sm">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500">
+          <Link href="/login" className="text-blue-500">
             Login
-          </a>
+          </Link>
         </p>
       </form>
     </div>

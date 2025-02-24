@@ -7,6 +7,27 @@ export async function POST(req: Request) {
     // Ensure request body is properly parsed
     const bodyText = await req.text();
     console.log("Raw Request Body:", bodyText);
+    // // app/api/auth/signup/route.ts - modified part
+    // // Generate verification token
+    // const verificationToken = crypto.randomBytes(32).toString("hex");
+
+    // // Create user with verification token
+    // const newUser = await prisma.user.create({
+    //   data: {
+    //     email,
+    //     password: hashedPassword,
+    //     name,
+    //     verificationToken,
+    //   },
+    // });
+
+    // // TODO: Send verification email with link to /api/auth/verify-email?token=verificationToken
+    // // You'll need an email service for this (SendGrid, Amazon SES, etc.)
+
+    // // For now, simulate an email:
+    // console.log(
+    //   `Verification link: ${process.env.NEXTAUTH_URL}/api/auth/verify-email?token=${verificationToken}`
+    // );
 
     if (!bodyText) {
       console.error("Sign-up failed: Empty request body");
