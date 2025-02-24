@@ -16,7 +16,7 @@ export async function GET(request: Request) {
       },
     });
     return NextResponse.json(pages);
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch pages" },
       { status: 500 }
