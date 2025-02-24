@@ -59,8 +59,8 @@ export default function Home() {
       </div>
     );
   }
-
   const handleChapterSelect = (chapterNumber: number) => {
+    console.log("skil issue");
     setIsLoading(chapterNumber);
     setTimeout(() => {
       setSelectedChapter(chapterNumber);
