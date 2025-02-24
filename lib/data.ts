@@ -1,13 +1,17 @@
 export interface Page {
   id: number;
-  chapterNumber: 1;
+  chapterNumber: number;
   variant: string;
   title: string;
-  description: string;
-  type: "survey" | "bonus";
+  description: string | null;
+  type: string;
   filePath: string;
-  rarity: "common" | "uncommon" | "rare";
+  rarity: string;
 }
+
+export type PageDatabase = {
+  [category: string]: Page[]; // Dictionary where each category has an array of pages
+};
 
 export const pageDatabase: PageDatabase = {
   philosophical: [

@@ -36,7 +36,7 @@ export default function Home() {
   const [userPages, setUserPages] = useState<Page[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
   const [completedChapters, setCompletedChapters] = useState<number[]>([]); // Initialize with empty array
-  const [isLoading, setIsLoading] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -64,7 +64,7 @@ export default function Home() {
     setIsLoading(chapterNumber);
     setTimeout(() => {
       setSelectedChapter(chapterNumber);
-      setIsLoading(null);
+      setIsLoading(undefined);
     }, 1000);
   };
 

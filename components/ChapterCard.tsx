@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 interface ChapterCardProps {
   chapterNum: number;
   isCompleted: boolean;
-  isLoading: number;
+  isLoading: number | undefined;
   onSelect: (chapterNum: number) => void;
 }
 

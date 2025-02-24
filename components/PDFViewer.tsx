@@ -28,7 +28,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
     onSwipedLeft: () =>
       pageNumber < numPages && setPageNumber((prev) => prev + 1),
     onSwipedRight: () => pageNumber > 1 && setPageNumber((prev) => prev - 1),
-    preventDefaultTouchmoveEvent: true,
+    preventScrollOnSwipe: true,
     trackMouse: true,
   });
 

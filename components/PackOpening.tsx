@@ -1,6 +1,6 @@
 // components/PackOpening.tsx
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Page } from "@/lib/data";
 
@@ -19,7 +19,7 @@ const PackOpening: React.FC<PackOpeningProps> = ({
   const [showCards, setShowCards] = useState(false);
 
   // Start animation sequence when component mounts
-  useState(() => {
+  useEffect(() => {
     setTimeout(() => {
       setIsOpening(false);
       setTimeout(() => {

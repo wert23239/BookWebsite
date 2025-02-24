@@ -36,7 +36,6 @@ model Page {
   filePath      String      @map("file_path")
   rarity        String
   type          String
-  createdAt     DateTime    @default(now()) @map("created_at")
   userPages     UserPage[]
 
   @@map("pages")
