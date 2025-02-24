@@ -60,7 +60,7 @@ const ChapterCard: React.FC<ChapterCardProps> = ({
           <motion.div whileTap={{ scale: 0.95 }}>
             <Button
               onClick={() => onSelect(chapterNum)}
-              disabled={isLoading !== null}
+              disabled={isLoading !== undefined}
               className={`chapter-button ${
                 isCompleted ? "chapter-button-completed" : "chapter-button-new"
               }`}
