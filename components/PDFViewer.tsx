@@ -64,7 +64,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({ pdfUrl }) => {
             className="flex flex-col items-center"
           >
             <motion.div
-              key={pageNumber}
+              key={`page-${pageNumber}-${Date.now()}`}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.9 }}

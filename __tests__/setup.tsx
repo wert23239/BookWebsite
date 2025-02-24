@@ -19,3 +19,21 @@ jest.mock("framer-motion", () => ({
   },
   AnimatePresence: ({ children }) => children,
 }));
+
+// Mock pdfjs-dist
+jest.mock("pdfjs-dist", () => ({
+  GlobalWorkerOptions: {
+    workerSrc: "",
+  },
+}));
+
+// Mock react-pdf more completely
+jest.mock("react-pdf", () => ({
+  Document: ({ children }) => <div data-testid="pdf-document">{children}</div>,
+  Page: ({ pageNumber }) => <div data-testid="pdf-page">Page {pageNumber}</div>,
+  pdfjs: {
+    GlobalWorkerOptions: {
+      workerSrc: "",
+    },
+  },
+}));

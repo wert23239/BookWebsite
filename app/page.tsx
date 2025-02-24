@@ -1,6 +1,8 @@
 // app/page.tsx
 "use client";
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
 import ChapterSelection from "@/components/ChapterSelection";
 import Survey from "@/components/Survey";
@@ -28,10 +30,19 @@ function saveUserData(pages: Page[], chapterNumber: number) {
 }
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const [userPages, setUserPages] = useState<Page[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<number | null>(null);
   const [completedChapters, setCompletedChapters] = useState<number[]>([]); // Initialize with empty array
   const [isLoading, setIsLoading] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
 
   useEffect(() => {
     const storedData = getUserData();
@@ -40,6 +51,14 @@ export default function Home() {
       setCompletedChapters(storedData.completedChapters || []); // Provide fallback empty array
     }
   }, []);
+
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
+  }
 
   const handleChapterSelect = (chapterNumber: number) => {
     setIsLoading(chapterNumber);
