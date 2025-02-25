@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "prisma generate && prisma migrate deploy && cp ./node_modules/pdfjs-dist/build/pdf.worker.mjs ./public/",
+    "postinstall": "prisma generate && prisma migrate deploy && prisma db seed && cp ./node_modules/pdfjs-dist/build/pdf.worker.mjs ./public/",
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
