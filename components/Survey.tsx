@@ -104,7 +104,7 @@ const determinePageVariant = (answers: Record<number, string>) => {
   // Find the most common type
   const maxCount = Math.max(...Object.values(counts));
   const dominantTypes = Object.entries(counts).filter(
-    ([_, count]) => count === maxCount
+    ([, count]) => count === maxCount
   );
 
   const randomIndex = Math.floor(Math.random() * dominantTypes.length);
