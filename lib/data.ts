@@ -18,7 +18,7 @@ export const pageDatabase: PageDatabase = {
     {
       id: 1,
       chapterNumber: 1,
-      variant: "P",
+      variant: "A",
       title: "Chapter 1: F.r.a.m.e.w.o.r.k.s",
       description: "The philosophical path through Chapter 1",
       type: "survey",
@@ -30,7 +30,7 @@ export const pageDatabase: PageDatabase = {
     {
       id: 2,
       chapterNumber: 1,
-      variant: "A",
+      variant: "B",
       title: "Chapter 1: Tutorial",
       description: "The action-oriented version of Chapter 1",
       type: "survey",
@@ -42,7 +42,7 @@ export const pageDatabase: PageDatabase = {
     {
       id: 3,
       chapterNumber: 1,
-      variant: "E",
+      variant: "C",
       title: "Chapter 1: Box Theory",
       description: "The emotional journey through Chapter 1",
       type: "survey",

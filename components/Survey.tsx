@@ -88,7 +88,7 @@ const chapterQuestions = {
   ],
 };
 
-const determinePageType = (answers: Record<number, string>) => {
+const determinePageVariant = (answers: Record<number, string>) => {
   const counts = {
     philosophical: 0,
     actionOriented: 0,
@@ -104,11 +104,16 @@ const determinePageType = (answers: Record<number, string>) => {
   // Find the most common type
   const maxCount = Math.max(...Object.values(counts));
   const dominantTypes = Object.entries(counts).filter(
-    ([, count]) => count === maxCount
+    ([_, count]) => count === maxCount
   );
 
   const randomIndex = Math.floor(Math.random() * dominantTypes.length);
-  return dominantTypes[randomIndex][0];
+  const personality = dominantTypes[randomIndex][0];
+
+  // Convert personality type to variant letter
+  if (personality === "philosophical") return "A";
+  if (personality === "actionOriented") return "B";
+  return "C"; // emotional
 };
 
 const getRandomPage = (pages: Page[]) => {
@@ -158,9 +163,10 @@ const Survey: React.FC<SurveyProps> = ({ onComplete, chapterNumber }) => {
     setIsSubmitting(true);
     try {
       // Get survey-based page
-      const personalityType = determinePageType(answers);
+      const variant = determinePageVariant(answers);
+
       const surveyPagesResponse = await fetch(
-        `/api/pages?type=survey&variant=${personalityType}&chapter=${chapterNumber}`
+        `/api/pages?type=survey&variant=${variant}&chapter=${chapterNumber}`
       );
       const surveyPages = await surveyPagesResponse.json();
       const surveyPage = getRandomPage(surveyPages);

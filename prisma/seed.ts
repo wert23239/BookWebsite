@@ -12,58 +12,62 @@ async function main() {
     // Chapter 1
     {
       chapterNumber: 1,
-      variant: "A",
-      title: "Chapter 1 - Path A",
-      description: "The first path through Chapter 1",
+      variant: "A", // This matches your data.ts
+      title: "Chapter 1: F.r.a.m.e.w.o.r.k.s",
+      description: "The philosophical path through Chapter 1",
+      type: "survey",
       filePath: "/pdfs/chapter1/Chapter1A.pdf",
       rarity: "common",
-      type: "survey",
     },
+    // Action-oriented
     {
       chapterNumber: 1,
-      variant: "B",
-      title: "Chapter 1 - Path B",
-      description: "The second path through Chapter 1",
-      filePath: "/pdfs/chapter1/Chapter1B.pdf",
-      rarity: "common",
+      variant: "B", // This matches your data.ts
+      title: "Chapter 1: Tutorial",
+      description: "The action-oriented version of Chapter 1",
       type: "survey",
+      filePath: "/pdfs/chapter1/Chapter2A.pdf",
+      rarity: "common",
     },
+    // Emotional
     {
       chapterNumber: 1,
-      variant: "C",
-      title: "Chapter 1 - Path C",
-      description: "The third path through Chapter 1",
-      filePath: "/pdfs/chapter1/Chapter1C.pdf",
-      rarity: "common",
+      variant: "C", // This matches your data.ts
+      title: "Chapter 1: Box Theory",
+      description: "The emotional journey through Chapter 1",
       type: "survey",
+      filePath: "/pdfs/chapter1/Chapter3A.pdf",
+      rarity: "common",
     },
     // Chapter 2 - using same PDFs for now
     {
       chapterNumber: 2,
-      variant: "A",
-      title: "Chapter 2 - Path A",
-      description: "The first path through Chapter 2",
-      filePath: "/pdfs/chapter1/Chapter1A.pdf", // Using same files for now
-      rarity: "common",
+      variant: "A", // This matches your data.ts
+      title: "Chapter 1: F.r.a.m.e.w.o.r.k.s",
+      description: "The philosophical path through Chapter 1",
       type: "survey",
+      filePath: "/pdfs/chapter1/Chapter1A.pdf",
+      rarity: "common",
     },
+    // Action-oriented
     {
       chapterNumber: 2,
-      variant: "B",
-      title: "Chapter 2 - Path B",
-      description: "The second path through Chapter 2",
-      filePath: "/pdfs/chapter1/Chapter1B.pdf", // Using same files for now
-      rarity: "common",
+      variant: "B", // This matches your data.ts
+      title: "Chapter 1: Tutorial",
+      description: "The action-oriented version of Chapter 1",
       type: "survey",
+      filePath: "/pdfs/chapter1/Chapter2A.pdf",
+      rarity: "common",
     },
+    // Emotional
     {
       chapterNumber: 2,
-      variant: "C",
-      title: "Chapter 2 - Path C",
-      description: "The third path through Chapter 2",
-      filePath: "/pdfs/chapter1/Chapter1C.pdf", // Using same files for now
-      rarity: "common",
+      variant: "C", // This matches your data.ts
+      title: "Chapter 1: Box Theory",
+      description: "The emotional journey through Chapter 1",
       type: "survey",
+      filePath: "/pdfs/chapter1/Chapter3A.pdf",
+      rarity: "common",
     },
   ];
 
